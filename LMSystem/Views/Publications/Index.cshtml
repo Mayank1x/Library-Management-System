@@ -1,0 +1,87 @@
+@model IEnumerable<LMSystem.Models.Publication>
+@{
+    ViewData["Title"] = ViewData["CurrentType"]?.ToString() + "s";
+}
+
+<div class="row mt-3 px-2 align-items-center mb-3">
+    <div class="col-md-6">
+        <h2 class="text-white mb-0">@ViewData["Title"] List</h2>
+    </div>
+    <div class="col-md-6 d-flex justify-content-end gap-3 align-items-center">
+        <form method="get" action="/Publications/Index" class="d-flex gap-2">
+            <input type="hidden" name="type" value="@ViewData["CurrentType"]" />
+            <input type="text" name="searchString" value="@ViewData["CurrentFilter"]" class="form-control" placeholder="Search..." style="width: 250px; background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.2);" />
+            <button type="submit" class="btn btn-outline-light">Search</button>
+            @if (!string.IsNullOrEmpty(ViewData["CurrentFilter"]?.ToString()))
+            {
+                <a href="/Publications/Index?type=@ViewData["CurrentType"]" class="btn btn-link text-white">Clear</a>
+            }
+        </form>
+        <a class="btn btn-primary btn-neon" href="/Publications/Create?type=@ViewData["CurrentType"]">Add New</a>
+    </div>
+</div>
+
+<table class="table table-bordered mt-3">
+    <thead>
+        <tr>
+            <th>Title</th><th>Publisher</th><th>Published Date</th><th>Availability</th><th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Any())
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Title</td>
+                    <td>@item.Publisher</td>
+                    <td>@item.PublishedDate.ToString("yyyy-MM-dd")</td>
+                    <td>
+                        @if (item.IsAvailable)
+                        {
+                            <span class="badge bg-success">Available</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-danger">Borrowed</span>
+                        }
+                    </td>
+                    <td>
+                        <a class="btn btn-warning btn-sm" href="/Publications/Edit/@item.Id">Edit</a>
+                        <a class="btn btn-danger btn-sm" href="/Publications/Delete/@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="5" class="text-center text-muted">No records found.</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@{
+    int totalPages = Convert.ToInt32(ViewData["TotalPages"]);
+    int currentPage = Convert.ToInt32(ViewData["PageNumber"]);
+}
+@if (totalPages > 1)
+{
+    <nav class="mt-4">
+        <ul class="pagination justify-content-center">
+            <li class="page-item @(currentPage == 1 ? "disabled" : "")">
+                <a class="page-link" href="/Publications/Index?type=@ViewData["CurrentType"]&searchString=@ViewData["CurrentFilter"]&pageNumber=@(currentPage - 1)" style="background-color: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); color: white;">Previous</a>
+            </li>
+            @for (int i = 1; i <= totalPages; i++)
+            {
+                <li class="page-item @(currentPage == i ? "active" : "")">
+                    <a class="page-link" href="/Publications/Index?type=@ViewData["CurrentType"]&searchString=@ViewData["CurrentFilter"]&pageNumber=@i" style="@(currentPage == i ? "background-color: var(--neon-accent); border-color: var(--neon-accent);" : "background-color: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); color: white;")">@i</a>
+                </li>
+            }
+            <li class="page-item @(currentPage == totalPages ? "disabled" : "")">
+                <a class="page-link" href="/Publications/Index?type=@ViewData["CurrentType"]&searchString=@ViewData["CurrentFilter"]&pageNumber=@(currentPage + 1)" style="background-color: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); color: white;">Next</a>
+            </li>
+        </ul>
+    </nav>
+}

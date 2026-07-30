@@ -1,0 +1,36 @@
+@model DashboardModel
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="text-center mb-5 mt-4">
+    <h1 class="display-4 text-neon mb-3">Library Management System</h1>
+    <p class="lead text-muted-glass">Sleek, fast, and beautifully dark.</p>
+</div>
+
+<div class="row g-4 mt-2">
+    <div class="col-md-3">
+        <div class="glass-card text-center">
+            <h5 class="text-muted-glass mb-2 text-uppercase" style="letter-spacing: 1px; font-size: 0.8rem;">Total Students</h5>
+            <h2 class="display-4 text-neon mb-0 fw-bold">@Model.TotalStudents</h2>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="glass-card text-center">
+            <h5 class="text-muted-glass mb-2 text-uppercase" style="letter-spacing: 1px; font-size: 0.8rem;">Total Books</h5>
+            <h2 class="display-4 text-neon mb-0 fw-bold">@Model.TotalBooks</h2>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="glass-card text-center">
+            <h5 class="text-muted-glass mb-2 text-uppercase" style="letter-spacing: 1px; font-size: 0.8rem;">Total Librarians</h5>
+            <h2 class="display-4 text-neon mb-0 fw-bold">@Model.TotalLibrarians</h2>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="glass-card text-center">
+            <h5 class="text-muted-glass mb-2 text-uppercase" style="letter-spacing: 1px; font-size: 0.8rem;">Active Borrowings</h5>
+            <h2 class="display-4 text-neon mb-0 fw-bold">@Model.TotalBorrowings</h2>
+        </div>
+    </div>
+</div>

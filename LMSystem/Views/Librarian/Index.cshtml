@@ -1,0 +1,72 @@
+@model LMSystem.Models.LibrarianIndexViewModel
+@{
+    ViewData["Title"] = "Librarians";
+}
+<div class="row mt-3 px-2 align-items-center mb-3">
+    <div class="col-md-6">
+        <h2 class="text-white mb-0">Librarians List</h2>
+    </div>
+    <div class="col-md-6 d-flex justify-content-end gap-3 align-items-center">
+        <form method="get" action="/Librarian/Index" class="d-flex gap-2">
+            <input type="text" name="searchTerm" value="@Model.SearchTerm" class="form-control" placeholder="Search..." style="width: 250px; background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.2);" />
+            <button type="submit" class="btn btn-outline-light">Search</button>
+            @if (!string.IsNullOrEmpty(Model.SearchTerm))
+            {
+                <a href="/Librarian/Index" class="btn btn-link text-white">Clear</a>
+            }
+        </form>
+        <a class="btn btn-primary btn-neon" href="/Librarian/Create">Add New</a>
+    </div>
+</div>
+
+<table class="table table-bordered mt-3">
+    <thead>
+        <tr>
+            <th>LibrarianID</th><th>Name</th><th>Age</th><th>Phone</th><th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Librarians.Any())
+        {
+            @foreach (var item in Model.Librarians)
+            {
+                <tr>
+                    <td>@item.LibrarianId</td>
+                    <td>@item.Name</td>
+                    <td>@item.Age</td>
+                    <td>@item.Phone</td>
+                    <td>
+                        <a class="btn btn-warning btn-sm" href="/Librarian/Edit/@item.LibrarianId">Edit</a>
+                        <a class="btn btn-danger btn-sm" href="/Librarian/Delete/@item.LibrarianId" onclick="return confirm('Are you sure?')">Delete</a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="5" class="text-center text-muted">No records found.</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@if (Model.TotalPages > 1)
+{
+    <nav class="mt-4">
+        <ul class="pagination justify-content-center">
+            <li class="page-item @(Model.CurrentPage == 1 ? "disabled" : "")">
+                <a class="page-link" href="/Librarian/Index?searchTerm=@Model.SearchTerm&page=@(Model.CurrentPage - 1)" style="background-color: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); color: white;">Previous</a>
+            </li>
+            @for (int i = 1; i <= Model.TotalPages; i++)
+            {
+                <li class="page-item @(Model.CurrentPage == i ? "active" : "")">
+                    <a class="page-link" href="/Librarian/Index?searchTerm=@Model.SearchTerm&page=@i" style="@(Model.CurrentPage == i ? "background-color: var(--neon-accent); border-color: var(--neon-accent);" : "background-color: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); color: white;")">@i</a>
+                </li>
+            }
+            <li class="page-item @(Model.CurrentPage == Model.TotalPages ? "disabled" : "")">
+                <a class="page-link" href="/Librarian/Index?searchTerm=@Model.SearchTerm&page=@(Model.CurrentPage + 1)" style="background-color: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); color: white;">Next</a>
+            </li>
+        </ul>
+    </nav>
+}

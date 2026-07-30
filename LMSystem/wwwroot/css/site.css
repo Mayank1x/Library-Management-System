@@ -1,0 +1,202 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;600;700&display=swap');
+
+:root {
+    --bg-gradient-start: #0a0a0f;
+    --bg-gradient-end: #171723;
+    --glass-bg: rgba(255, 255, 255, 0.03);
+    --glass-border: rgba(255, 255, 255, 0.07);
+    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    --text-primary: #f8fafc;
+    --text-muted: #8b8b9f;
+    --accent-neon: #f59e0b;
+    --accent-neon-hover: #fbbf24;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
+    background-attachment: fixed;
+    color: var(--text-primary);
+    min-height: 100vh;
+}
+
+h1, h2, h3, h4, h5, h6, .navbar-brand {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+}
+
+/* Glass Navbar */
+.navbar {
+    background: var(--glass-bg) !important;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--glass-border);
+}
+.navbar-brand {
+    color: var(--accent-neon) !important;
+    text-shadow: 0 0 10px rgba(245, 158, 11, 0.3);
+    font-size: 1.6rem;
+    letter-spacing: -0.5px;
+}
+.nav-link {
+    color: var(--text-primary) !important;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    margin-left: 1rem;
+}
+.nav-link:hover {
+    color: var(--accent-neon) !important;
+}
+
+/* Glass Cards */
+.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    box-shadow: var(--glass-shadow);
+    padding: 2.5rem;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+}
+.glass-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 45px 0 rgba(0, 0, 0, 0.6);
+    border-color: rgba(245, 158, 11, 0.2);
+}
+
+/* Typography Helpers */
+.text-neon {
+    color: var(--accent-neon);
+}
+.text-muted-glass {
+    color: var(--text-muted);
+}
+
+/* Custom Neon Button */
+.btn-neon {
+    background: linear-gradient(135deg, #d97706, var(--accent-neon));
+    border: none;
+    color: #111;
+    font-weight: 600;
+    padding: 0.7rem 1.8rem;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(245, 158, 11, 0.2);
+}
+.btn-neon:hover {
+    background: linear-gradient(135deg, var(--accent-neon), var(--accent-neon-hover));
+    box-shadow: 0 6px 25px rgba(245, 158, 11, 0.5);
+    color: #000;
+    transform: translateY(-2px);
+}
+
+/* Override Bootstrap Defaults */
+.btn-primary {
+    background-color: var(--accent-neon);
+    border-color: var(--accent-neon);
+    color: #000;
+    font-weight: 600;
+    border-radius: 8px;
+}
+.btn-primary:hover {
+    background-color: var(--accent-neon-hover);
+    border-color: var(--accent-neon-hover);
+    color: #000;
+    box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
+}
+.btn-success {
+    background-color: #10b981;
+    border-color: #10b981;
+    color: #fff;
+}
+.btn-danger {
+    background-color: #ef4444;
+    border-color: #ef4444;
+}
+a {
+    color: var(--accent-neon);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+a:hover {
+    color: var(--accent-neon-hover);
+}
+
+/* Glass Table */
+.table,
+.table > :not(caption) > * > * {
+    color: var(--text-primary) !important;
+    background-color: transparent !important;
+    border-color: var(--glass-border) !important;
+}
+.table {
+    margin-bottom: 0;
+}
+.glass-table-container {
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: var(--glass-shadow);
+    overflow: hidden;
+    margin-top: 2rem;
+}
+.table thead th {
+    border-bottom: 2px solid var(--glass-border);
+    color: var(--text-muted);
+    font-family: 'Outfit', sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 1.5px;
+    padding-bottom: 1rem;
+}
+.table td, .table th {
+    border-color: var(--glass-border);
+    background: transparent !important;
+    padding: 1.2rem 1rem;
+    vertical-align: middle;
+}
+.table tbody tr {
+    transition: background-color 0.2s ease;
+}
+.table tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.04) !important;
+}
+
+/* Form Controls */
+.form-control, .form-select {
+    background-color: rgba(0, 0, 0, 0.25);
+    border: 1px solid var(--glass-border);
+    color: var(--text-primary);
+    border-radius: 10px;
+    padding: 0.75rem 1rem;
+}
+.form-control:focus, .form-select:focus {
+    background-color: rgba(0, 0, 0, 0.4);
+    border-color: var(--accent-neon);
+    box-shadow: 0 0 0 0.25rem rgba(245, 158, 11, 0.15);
+    color: var(--text-primary);
+}
+.form-control::placeholder {
+    color: var(--text-muted);
+}
+.control-label {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.5rem;
+}
+.text-danger {
+    color: #f87171 !important;
+}
+
+/* Footer */
+.footer {
+    background: var(--glass-bg) !important;
+    backdrop-filter: blur(16px);
+    border-top: 1px solid var(--glass-border) !important;
+}
