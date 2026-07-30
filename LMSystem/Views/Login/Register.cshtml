@@ -1,0 +1,50 @@
+@model LMSystem.Models.RegisterModel
+@{
+    ViewData["Title"] = "Secure Registration";
+}
+
+<div class="row justify-content-center align-items-center" style="min-height: 70vh;">
+    <div class="col-md-5">
+        <div class="glass-card p-5 text-center">
+            <h2 class="text-neon mb-2 fw-bold">Create Account</h2>
+            <p class="text-muted-glass mb-5">Register to access the LMS Gateway.</p>
+            
+            <form asp-action="Register" method="post">
+                <div class="mb-4 text-start">
+                    <label asp-for="Username" class="control-label text-light">Username</label>
+                    <input asp-for="Username" class="form-control form-control-lg" required placeholder="Choose a username" />
+                    <span asp-validation-for="Username" class="text-danger small mt-1 d-block"></span>
+                </div>
+                
+                <div class="mb-4 text-start">
+                    <label asp-for="Password" class="control-label text-light">Password</label>
+                    <input asp-for="Password" type="password" class="form-control form-control-lg" required placeholder="Create a password" />
+                    <span asp-validation-for="Password" class="text-danger small mt-1 d-block"></span>
+                </div>
+                
+                <div class="mb-5 text-start">
+                    <label asp-for="ConfirmPassword" class="control-label text-light">Confirm Password</label>
+                    <input asp-for="ConfirmPassword" type="password" class="form-control form-control-lg" required placeholder="Verify your password" />
+                    <span asp-validation-for="ConfirmPassword" class="text-danger small mt-1 d-block"></span>
+                </div>
+                
+                <button type="submit" class="btn btn-neon w-100 btn-lg text-uppercase" style="letter-spacing: 1px;">Sign Up</button>
+                
+                @if (ViewBag.message != null)
+                {
+                    <div class="alert alert-danger mt-4 bg-transparent border-danger text-danger" style="border-radius: 8px;">
+                        @ViewBag.message
+                    </div>
+                }
+
+                <div class="mt-4 text-center">
+                    <p class="text-muted-glass mb-0">Already have an account? <a asp-action="Index" class="text-neon text-decoration-none">Log in here</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
